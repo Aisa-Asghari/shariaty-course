@@ -17,6 +17,4 @@ deploy:
   stage: deploy
   script:
     - dotnet publish shariaty-course/shariaty-course.csproj --configuration Release --output ./publish
-    - echo "Deploying to Netlify..."
-    - echo "Deploying to local server..."
-    - dotnet run --project shariaty-course/shariaty-course.csproj --urls "http://localhost:8087"
+    - echo "Deploying to Netlify..."    
