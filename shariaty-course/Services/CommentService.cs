@@ -110,5 +110,14 @@
             }
             return existingComment;
         }
+
+        public void DeleteComment(int id)
+        {
+            var commentToDelete = _comments.FirstOrDefault(comment => comment.Id == id);
+            if (commentToDelete != null)
+            {
+                _comments.Remove(commentToDelete);
+            }
+        }
     }
 }
