@@ -4,5 +4,6 @@
     {
         IEnumerable<Comment> GetComments();
         Comment GetComment(int id);
+        Comment AddComment(Comment comment);
     }
 }

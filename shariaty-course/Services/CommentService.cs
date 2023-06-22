@@ -77,5 +77,12 @@
             }
             return comment;
         }
+
+        public Comment AddComment(Comment comment)
+        {
+            comment.Id = _comments.Select(comment => comment.Id).DefaultIfEmpty(0).Max() + 1;
+            _comments.Add(comment);
+            return comment;
+        }
     }
 }

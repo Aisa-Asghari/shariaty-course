@@ -33,5 +33,13 @@ namespace shariaty_course.Controllers
             }
             return Ok(comment);
         }
+
+        // POST: api/Comments
+        [HttpPost]
+        public IActionResult AddComment([FromBody] Comment comment)
+        {
+            var addedComment = _commentService.AddComment(comment);
+            return CreatedAtAction(nameof(GetComment), new { id = addedComment.Id }, addedComment);
+        }
     }
 }
