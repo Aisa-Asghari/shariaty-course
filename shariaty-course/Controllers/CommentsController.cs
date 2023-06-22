@@ -21,5 +21,17 @@ namespace shariaty_course.Controllers
             var comments = _commentService.GetComments();
             return Ok(comments);
         }
+
+        // GET: api/Comments/5
+        [HttpGet("{id}")]
+        public IActionResult GetComment(int id)
+        {
+            var comment = _commentService.GetComment(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
+        }
     }
 }

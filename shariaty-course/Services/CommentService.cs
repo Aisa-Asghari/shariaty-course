@@ -67,5 +67,15 @@
         {
             return _comments;
         }
+
+        public Comment GetComment(int id)
+        {
+            var comment = _comments.FirstOrDefault(comment => comment.Id == id);
+            if (comment == null)
+            {
+                throw new ArgumentException($"Comment with ID {id} not found.");
+            }
+            return comment;
+        }
     }
 }
