@@ -312,5 +312,32 @@ namespace test_shariaty_course
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public void DeleteComment_WithValidId_ReturnsNoContentResult()
+        {
+            var commentId = 1;
+
+            _mockCommentService.Setup(service => service.DeleteComment(commentId)).Verifiable();
+
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Returns(new Comment { Id = commentId });
+
+            var result = _controller.DeleteComment(commentId);
+
+            Assert.IsType<NoContentResult>(result);
+            _mockCommentService.Verify(service => service.DeleteComment(commentId), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteComment_WithInvalidId_ReturnsNotFoundResult()
+        {
+            var commentId = 40;
+
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Throws(new ArgumentException("Comment with ID 40 not found."));
+
+            var result = _controller.DeleteComment(commentId);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
     }
 }
