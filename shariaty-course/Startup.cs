@@ -16,6 +16,7 @@ namespace shariaty_course
             services.AddControllers();
             
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ICommentService, CommentService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
