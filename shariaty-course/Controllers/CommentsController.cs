@@ -54,5 +54,21 @@ namespace shariaty_course.Controllers
             }
             return Ok(updatedComment);
         }
+
+        // DELETE: api/Comments/5        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteComment(int id)
+        {
+            try
+            {
+                var deletingComment = _commentService.GetComment(id);
+                _commentService.DeleteComment(id);
+                return NoContent();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
     }
 }
