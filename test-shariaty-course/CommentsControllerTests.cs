@@ -105,5 +105,65 @@ namespace test_shariaty_course
                 Assert.Equal(comment.ExpectedComment.Score, comment.Comment.Score);
             }
         }
+
+        [Fact]
+        public void GetComment_WithValidId_ReturnsOkResult_WithMatchingComment()
+        {
+            var commentId = 1;
+            var expectedComment = new Comment
+            {
+                Id = 1,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            };
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Returns(expectedComment);
+
+            var result = _controller.GetComment(commentId);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var comment = Assert.IsAssignableFrom<Comment>(okResult.Value);
+            Assert.Equal(expectedComment.Id, comment.Id);
+            Assert.Equal(expectedComment.Professor, comment.Professor);
+            Assert.Equal(expectedComment.Field, comment.Field);
+            Assert.Equal(expectedComment.Course, comment.Course);
+            Assert.Equal(expectedComment.ProfessorPresence, comment.ProfessorPresence);
+            Assert.Equal(expectedComment.PresenceAbsence, comment.PresenceAbsence);
+            Assert.Equal(expectedComment.ProfessorBehavior, comment.ProfessorBehavior);
+            Assert.Equal(expectedComment.ClassResources, comment.ClassResources);
+            Assert.Equal(expectedComment.ExamResources, comment.ExamResources);
+            Assert.Equal(expectedComment.Homeworks, comment.Homeworks);
+            Assert.Equal(expectedComment.ResourcesEnough, comment.ResourcesEnough);
+            Assert.Equal(expectedComment.TeachedEnough, comment.TeachedEnough);
+            Assert.Equal(expectedComment.Grading, comment.Grading);
+            Assert.Equal(expectedComment.Contact, comment.Contact);
+            Assert.Equal(expectedComment.Semester, comment.Semester);
+            Assert.Equal(expectedComment.Description, comment.Description);
+            Assert.Equal(expectedComment.Score, comment.Score);
+        }
+
+        [Fact]
+        public void GetComment_WithInvalidId_ReturnsNotFoundResult()
+        {
+            var commentId = 4;
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Returns((Comment)null);
+
+            var result = _controller.GetComment(commentId);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
