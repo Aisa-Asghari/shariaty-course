@@ -41,5 +41,18 @@ namespace shariaty_course.Controllers
             var addedComment = _commentService.AddComment(comment);
             return CreatedAtAction(nameof(GetComment), new { id = addedComment.Id }, addedComment);
         }
+
+        // PUT: api/Comments/5
+        [HttpPut("{id}")]
+        public IActionResult UpdateComment(int id, [FromBody] Comment comment)
+        {
+            var updatedComment = _commentService.UpdateComment(id, comment);
+
+            if (updatedComment == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedComment);
+        }
     }
 }

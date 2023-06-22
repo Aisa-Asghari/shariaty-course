@@ -84,5 +84,31 @@
             _comments.Add(comment);
             return comment;
         }
+
+        public Comment UpdateComment(int id, Comment comment)
+        {
+            var existingComment = _comments.FirstOrDefault(c => c.Id == id);
+            if (existingComment != null)
+            {
+                existingComment.Professor = comment.Professor;
+                existingComment.Field = comment.Field;
+                existingComment.Course = comment.Course;
+                existingComment.ProfessorPresence = comment.ProfessorPresence;
+                existingComment.PresenceAbsence = comment.PresenceAbsence;
+                existingComment.ProfessorBehavior = comment.ProfessorBehavior;
+                existingComment.ClassResources = comment.ClassResources;
+                existingComment.ExamResources = comment.ExamResources;
+                existingComment.Homeworks = comment.Homeworks;
+                existingComment.ResourcesEnough = comment.ResourcesEnough;
+                existingComment.TeachedEnough = comment.TeachedEnough;
+                existingComment.Grading = comment.Grading;
+                existingComment.Contact = comment.Contact;
+                existingComment.Semester = comment.Semester;
+                existingComment.Description = comment.Description;
+                existingComment.Score = comment.Score;
+
+            }
+            return existingComment;
+        }
     }
 }
