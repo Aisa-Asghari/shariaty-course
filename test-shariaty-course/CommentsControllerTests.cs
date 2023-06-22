@@ -165,5 +165,179 @@ namespace test_shariaty_course
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public void AddComment_ValidComment_ReturnsCreatedAtActionResult_WithNewComment()
+        {
+            var newComment = new Comment
+            {
+                Id = 1,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            };
+            _mockCommentService.Setup(service => service.AddComment(newComment)).Returns(new Comment
+            {
+                Id = 1,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            });
+
+            var result = _controller.AddComment(newComment);
+
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            var comment = Assert.IsAssignableFrom<Comment>(createdAtActionResult.Value);
+            Assert.Equal(newComment.Id, comment.Id);
+            Assert.Equal(newComment.Professor, comment.Professor);
+            Assert.Equal(newComment.Field, comment.Field);
+            Assert.Equal(newComment.Course, comment.Course);
+            Assert.Equal(newComment.ProfessorPresence, comment.ProfessorPresence);
+            Assert.Equal(newComment.PresenceAbsence, comment.PresenceAbsence);
+            Assert.Equal(newComment.ProfessorBehavior, comment.ProfessorBehavior);
+            Assert.Equal(newComment.ClassResources, comment.ClassResources);
+            Assert.Equal(newComment.ExamResources, comment.ExamResources);
+            Assert.Equal(newComment.Homeworks, comment.Homeworks);
+            Assert.Equal(newComment.ResourcesEnough, comment.ResourcesEnough);
+            Assert.Equal(newComment.TeachedEnough, comment.TeachedEnough);
+            Assert.Equal(newComment.Grading, comment.Grading);
+            Assert.Equal(newComment.Contact, comment.Contact);
+            Assert.Equal(newComment.Semester, comment.Semester);
+            Assert.Equal(newComment.Description, comment.Description);
+            Assert.Equal(newComment.Score, comment.Score);
+        }
+
+        [Fact]
+        public void UpdateComment_WithValidIdAndComment_ReturnsOkResult_WithUpdatedComment()
+        {
+            var commentId = 3;
+            var updatedComment = new Comment
+            {
+                Id = 3,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            };
+            _mockCommentService.Setup(service => service.UpdateComment(commentId, updatedComment)).Returns(updatedComment);
+
+            var result = _controller.UpdateComment(commentId, updatedComment);
+
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var comment = Assert.IsAssignableFrom<Comment>(okResult.Value);
+            Assert.Equal(updatedComment.Id, comment.Id);
+            Assert.Equal(updatedComment.Professor, comment.Professor);
+            Assert.Equal(updatedComment.Field, comment.Field);
+            Assert.Equal(updatedComment.Course, comment.Course);
+            Assert.Equal(updatedComment.ProfessorPresence, comment.ProfessorPresence);
+            Assert.Equal(updatedComment.PresenceAbsence, comment.PresenceAbsence);
+            Assert.Equal(updatedComment.ProfessorBehavior, comment.ProfessorBehavior);
+            Assert.Equal(updatedComment.ClassResources, comment.ClassResources);
+            Assert.Equal(updatedComment.ExamResources, comment.ExamResources);
+            Assert.Equal(updatedComment.Homeworks, comment.Homeworks);
+            Assert.Equal(updatedComment.ResourcesEnough, comment.ResourcesEnough);
+            Assert.Equal(updatedComment.TeachedEnough, comment.TeachedEnough);
+            Assert.Equal(updatedComment.Grading, comment.Grading);
+            Assert.Equal(updatedComment.Contact, comment.Contact);
+            Assert.Equal(updatedComment.Semester, comment.Semester);
+            Assert.Equal(updatedComment.Description, comment.Description);
+            Assert.Equal(updatedComment.Score, comment.Score);
+        }
+
+        [Fact]
+        public void UpdateComment_WithInvalidId_ReturnsNotFoundResult()
+        {
+            var commentId = 4;
+            var updatedComment = new Comment
+            {
+                Id = 3,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            };
+            _mockCommentService.Setup(service => service.UpdateComment(commentId, updatedComment)).Returns((Comment)null);
+
+            var result = _controller.UpdateComment(commentId, updatedComment);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public void DeleteComment_WithValidId_ReturnsNoContentResult()
+        {
+            var commentId = 1;
+
+            _mockCommentService.Setup(service => service.DeleteComment(commentId)).Verifiable();
+
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Returns(new Comment { Id = commentId });
+
+            var result = _controller.DeleteComment(commentId);
+
+            Assert.IsType<NoContentResult>(result);
+            _mockCommentService.Verify(service => service.DeleteComment(commentId), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteComment_WithInvalidId_ReturnsNotFoundResult()
+        {
+            var commentId = 40;
+
+            _mockCommentService.Setup(service => service.GetComment(commentId)).Throws(new ArgumentException("Comment with ID 40 not found."));
+
+            var result = _controller.DeleteComment(commentId);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
     }
 }
