@@ -165,5 +165,72 @@ namespace test_shariaty_course
 
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public void AddComment_ValidComment_ReturnsCreatedAtActionResult_WithNewComment()
+        {
+            var newComment = new Comment
+            {
+                Id = 1,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            };
+            _mockCommentService.Setup(service => service.AddComment(newComment)).Returns(new Comment
+            {
+                Id = 1,
+                Professor = "منیره نیک اختر",
+                Field = "نرم افزار",
+                Course = "آزمایشگاه سیستم عامل",
+                ProfessorPresence = "به موقع شروع و به موقع کلاس رو تموم میکردند",
+                PresenceAbsence = "هر جلسه انجام میشد و حضور براشون مهم بود",
+                ProfessorBehavior = "خوب",
+                ClassResources = "جزوه، تصاویر",
+                ExamResources = "تمام مباحثی که سرکلاس گفته میشد (جزوه، تصاویر، نکات مهمی که خارج از جزوه گفته میشد)",
+                Homeworks = "با توجه به مبحث و نیاز کلاس تمرین میدادن برای هفته بعد و اینطوری نبود که هر جلسه تمرین داشته باشیم",
+                ResourcesEnough = "بله",
+                TeachedEnough = "اگر زمان کم باشه ممکنه سرفصل ها کامل نشن",
+                Grading = "دقیقا نمره خود دانشجو لحاظ میشود بدون کوچکترین بالا یا پایینی",
+                Contact = "Nikakhtar@shariaty.ac.ir",
+                Semester = "بهمن 98",
+                Description = "امتحانات زیادی در طول ترم میگیرن، امتحان پایان ترم هم به صورت تستی بود با تایم خیلی محدود و بدون امکان بازگشت به عقب",
+                Score = 4
+            });
+
+            var result = _controller.AddComment(newComment);
+
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            var comment = Assert.IsAssignableFrom<Comment>(createdAtActionResult.Value);
+            Assert.Equal(newComment.Id, comment.Id);
+            Assert.Equal(newComment.Professor, comment.Professor);
+            Assert.Equal(newComment.Field, comment.Field);
+            Assert.Equal(newComment.Course, comment.Course);
+            Assert.Equal(newComment.ProfessorPresence, comment.ProfessorPresence);
+            Assert.Equal(newComment.PresenceAbsence, comment.PresenceAbsence);
+            Assert.Equal(newComment.ProfessorBehavior, comment.ProfessorBehavior);
+            Assert.Equal(newComment.ClassResources, comment.ClassResources);
+            Assert.Equal(newComment.ExamResources, comment.ExamResources);
+            Assert.Equal(newComment.Homeworks, comment.Homeworks);
+            Assert.Equal(newComment.ResourcesEnough, comment.ResourcesEnough);
+            Assert.Equal(newComment.TeachedEnough, comment.TeachedEnough);
+            Assert.Equal(newComment.Grading, comment.Grading);
+            Assert.Equal(newComment.Contact, comment.Contact);
+            Assert.Equal(newComment.Semester, comment.Semester);
+            Assert.Equal(newComment.Description, comment.Description);
+            Assert.Equal(newComment.Score, comment.Score);
+        }
     }
 }
