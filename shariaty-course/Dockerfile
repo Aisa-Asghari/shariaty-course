@@ -20,3 +20,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "shariaty-course.dll"]
+
+docker build -t shariaty-course-image .
+docker run -p 8080:80 --name shariaty-course-container shariaty-course-image
+
