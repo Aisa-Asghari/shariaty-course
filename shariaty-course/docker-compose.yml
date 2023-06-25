@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  shariaty-course:
+    image: docker.io/library/shariaty-course-image    
+    ports:
+      - '8087:8087'    
